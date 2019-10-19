@@ -4,8 +4,22 @@ const SPEED = 120
 var velocity = Vector2()
 var direction = null
 
-func set_direction(dir):
-	direction = dir
+func set_direction(facing_dir):
+	
+	var dir_vector
+	if facing_dir == "right":
+		dir_vector = Vector2(1, 0)
+		$AnimatedSprite.global_rotation_degrees = 90
+	elif facing_dir == "left":
+		dir_vector = Vector2(-1, 0)
+		$AnimatedSprite.global_rotation_degrees = -90
+	elif facing_dir == "up":
+		dir_vector = Vector2(0, -1)
+	elif facing_dir == "down":
+		dir_vector = Vector2(0, 1)
+		$AnimatedSprite.global_rotation_degrees = 180
+				
+	direction = dir_vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

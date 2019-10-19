@@ -15,18 +15,22 @@ func get_input():
 		velocity.x += 1
 		$AnimatedSprite.play("right")
 		$AnimatedSprite.flip_h = false
+		facing_dir = "right"
 	elif Input.is_action_pressed('ui_left'):
 		velocity.x -= 1
 		$AnimatedSprite.play("right")
-		$AnimatedSprite.flip_h = true	
+		$AnimatedSprite.flip_h = true
+		facing_dir = "left"	
 	elif Input.is_action_pressed('ui_down'):
 		velocity.y += 1
 		$AnimatedSprite.play('up')
 		$AnimatedSprite.flip_v = true
+		facing_dir = "down"
 	elif Input.is_action_pressed('ui_up'):
 		velocity.y -= 1
 		$AnimatedSprite.play('up')
 		$AnimatedSprite.flip_v = false
+		facing_dir = "up"
 	else:
 		if $AnimatedSprite.animation.get_basename() == "up":
 			$AnimatedSprite.play("idle_up")
@@ -38,7 +42,10 @@ func get_input():
 		if abs(shot_cooldown_begin - OS.get_ticks_msec()) > 1000:
 			shot_cooldown_begin = OS.get_ticks_msec()
 			var projectile = PROJECTILE.instance()
-			projectile.set_direction(Vector2(1,1))
+			
+			
+			
+			projectile.set_direction(facing_dir)
 			get_parent().add_child(projectile)
 			projectile.position = $Position2D.global_position
 		
