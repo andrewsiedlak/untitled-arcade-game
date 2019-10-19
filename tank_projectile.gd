@@ -16,3 +16,5 @@ func _physics_process(delta):
 	velocity.y = direction.normalized().y * SPEED * delta
 	translate(velocity)
 	
+func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()

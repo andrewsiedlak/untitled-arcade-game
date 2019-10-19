@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var speed = 70
 var velocity = Vector2()
+var shot_cooldown_begin = OS.get_ticks_msec()
 
 const PROJECTILE = preload("res://tank_projectile.tscn")
 
@@ -28,10 +29,14 @@ func get_input():
 		print("Up")	
 		
 	if Input.is_key_pressed(KEY_SPACE):
-		var projectile = PROJECTILE.instance()
-		projectile.set_direction(Vector2(1,1))
-		get_parent().add_child(projectile)
-		projectile.position = $Position2D.global_position
+		
+		if abs(shot_cooldown_begin - OS.get_ticks_msec()) > 1000:
+			shot_cooldown_begin = OS.get_ticks_msec()
+			var projectile = PROJECTILE.instance()
+			projectile.set_direction(Vector2(1,1))
+			get_parent().add_child(projectile)
+			projectile.position = $Position2D.global_position
+		
 		
 		
 	velocity = velocity.normalized() * speed
