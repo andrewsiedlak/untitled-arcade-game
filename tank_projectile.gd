@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 10
+const SPEED = 120
 var velocity = Vector2()
 var direction = null
 
@@ -12,7 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	velocity.x = direction.normalized().x * SPEED
-	velocity.y = direction.normalized().y * SPEED
+	velocity.x = direction.normalized().x * SPEED * delta
+	velocity.y = direction.normalized().y * SPEED * delta
 	translate(velocity)
 	
