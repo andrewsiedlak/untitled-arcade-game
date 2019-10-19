@@ -3,8 +3,10 @@ extends KinematicBody2D
 var speed = 70
 var velocity = Vector2()
 var shot_cooldown_begin = OS.get_ticks_msec()
+var facing_dir = null
 
 const PROJECTILE = preload("res://tank_projectile.tscn")
+
 
 func get_input():
 	# Detect up/down/left/right keystate and only move when pressed.
@@ -13,20 +15,23 @@ func get_input():
 		velocity.x += 1
 		$AnimatedSprite.play("right")
 		$AnimatedSprite.flip_h = false
-	if Input.is_action_pressed('ui_left'):
+	elif Input.is_action_pressed('ui_left'):
 		velocity.x -= 1
 		$AnimatedSprite.play("right")
-		$AnimatedSprite.flip_h = true
-	if Input.is_action_pressed('ui_down'):
+		$AnimatedSprite.flip_h = true	
+	elif Input.is_action_pressed('ui_down'):
 		velocity.y += 1
 		$AnimatedSprite.play('up')
 		$AnimatedSprite.flip_v = true
-		print("Down")
-	if Input.is_action_pressed('ui_up'):
+	elif Input.is_action_pressed('ui_up'):
 		velocity.y -= 1
 		$AnimatedSprite.play('up')
 		$AnimatedSprite.flip_v = false
-		print("Up")	
+	else:
+		if $AnimatedSprite.animation.get_basename() == "up":
+			$AnimatedSprite.play("idle_up")
+		elif $AnimatedSprite.animation.get_basename() == "right":
+			$AnimatedSprite.play("idle_right")
 		
 	if Input.is_key_pressed(KEY_SPACE):
 		
