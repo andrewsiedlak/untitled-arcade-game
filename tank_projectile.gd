@@ -21,14 +21,14 @@ func set_direction(facing_dir):
 				
 	direction = dir_vector
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func _physics_process(delta):
 	velocity.x = direction.normalized().x * SPEED * delta
 	velocity.y = direction.normalized().y * SPEED * delta
 	translate(velocity)
 	
 func _on_VisibilityNotifier2D_screen_exited():
+	queue_free()
+
+
+func _on_Area2D_body_entered(body):
 	queue_free()

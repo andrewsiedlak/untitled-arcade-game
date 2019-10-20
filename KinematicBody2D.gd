@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
-var speed = 70
 var velocity = Vector2()
 var shot_cooldown_begin = OS.get_ticks_msec()
 var facing_dir = null
 
 const PROJECTILE = preload("res://tank_projectile.tscn")
-
+const SHOT_COOLDOWN_MSEC = 300
+const SPEED = 70
 
 func get_input():
 	# Detect up/down/left/right keystate and only move when pressed.
@@ -39,19 +39,16 @@ func get_input():
 		
 	if Input.is_key_pressed(KEY_SPACE):
 		
-		if abs(shot_cooldown_begin - OS.get_ticks_msec()) > 1000:
+		if abs(shot_cooldown_begin - OS.get_ticks_msec()) > SHOT_COOLDOWN_MSEC:
 			shot_cooldown_begin = OS.get_ticks_msec()
 			var projectile = PROJECTILE.instance()
-			
-			
-			
 			projectile.set_direction(facing_dir)
 			get_parent().add_child(projectile)
 			projectile.position = $Position2D.global_position
 		
 		
 		
-	velocity = velocity.normalized() * speed
+	velocity = velocity.normalized() * SPEED
 
 func _physics_process(delta):
 	get_input()
