@@ -15,29 +15,26 @@ func get_input():
 	velocity = Vector2()
 	if Input.is_action_pressed('ui_right'):
 		velocity.x += 1
-		$AnimatedSprite.play("right")
-		$AnimatedSprite.flip_h = false
+		$AnimatedSprite.play("moving")
+		global_rotation_degrees = 90
 		facing_dir = "right"
 	elif Input.is_action_pressed('ui_left'):
 		velocity.x -= 1
-		$AnimatedSprite.play("right")
-		$AnimatedSprite.flip_h = true
+		$AnimatedSprite.play("moving")
+		global_rotation_degrees = -90
 		facing_dir = "left"	
 	elif Input.is_action_pressed('ui_down'):
 		velocity.y += 1
-		$AnimatedSprite.play('up')
-		$AnimatedSprite.flip_v = true
+		$AnimatedSprite.play("moving")
+		global_rotation_degrees = 180
 		facing_dir = "down"
 	elif Input.is_action_pressed('ui_up'):
 		velocity.y -= 1
-		$AnimatedSprite.play('up')
-		$AnimatedSprite.flip_v = false
+		$AnimatedSprite.play('moving')
+		global_rotation_degrees = 0
 		facing_dir = "up"
 	else:
-		if $AnimatedSprite.animation.get_basename() == "up":
-			$AnimatedSprite.play("idle_up")
-		elif $AnimatedSprite.animation.get_basename() == "right":
-			$AnimatedSprite.play("idle_right")
+		$AnimatedSprite.play("idle")
 		
 	if Input.is_key_pressed(KEY_SPACE):
 		
