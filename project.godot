@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Tank",
+"language": "GDScript",
+"path": "res://KinematicBody2D.gd"
+}, {
+"base": "Area2D",
+"class": "TempProjectile",
+"language": "GDScript",
+"path": "res://Projectile.gd"
+} ]
 _global_script_class_icons={
-
+"Tank": "",
+"TempProjectile": ""
 }
 
 [application]
