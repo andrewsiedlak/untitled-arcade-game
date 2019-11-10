@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Tank
 
-const PROJECTILE = preload("res://tank_projectile.tscn")
+const PROJECTILE = preload("res://Entities/TankProjectile/tank_projectile.tscn")
 const SHOT_COOLDOWN_MSEC = 300
 const SPEED = 70
 

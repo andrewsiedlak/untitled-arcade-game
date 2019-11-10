@@ -4,7 +4,7 @@ var target: Tank
 var PROJECTILE_SPEED = 100
 var pos
 
-const proj = preload("res://Projectile.tscn")
+const proj = preload("res://Entities/Projectile/Projectile.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
