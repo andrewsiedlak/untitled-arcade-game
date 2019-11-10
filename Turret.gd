@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 var target: Tank
-var PROJECTILE_SPEED = .01
+var PROJECTILE_SPEED = 100
 var pos
 
 const proj = preload("res://Projectile.tscn")
@@ -19,15 +19,17 @@ func _process(delta):
 func track():
 	
 	pass
-	var t_vel = target.velocity
+	var t_vel = -target.velocity
 	var t_pos = target.global_position
 
-	var a = t_vel.dot(t_vel) - PROJECTILE_SPEED
+	var a = t_vel.dot(t_vel) - pow(PROJECTILE_SPEED, 2)
 	var b = 2*(t_pos - pos).dot(t_vel)
 	var c = (t_pos - pos).dot((t_pos - pos))
 	
+	print("Pos: %s" % t_pos)
+	print("Vel: %s" % t_vel)
 	print('a: %s,\t b: %s,\t c: %s' % [a, b, c])
-	print('pow(b, 2) > 4*a*c \t %s' % str(pow(b, 2) > 4*a*c))
+	print('pow(b, 2) > 4*a*c \t %s\n' % str(pow(b, 2) > 4*a*c))
 	
 	
 	if pow(b, 2) > 4*a*c and a != 0:
