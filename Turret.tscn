@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Turret.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Godot/icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9, 9 )
@@ -20,4 +20,5 @@ shape = SubResource( 1 )
 [node name="Position" type="Position2D" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

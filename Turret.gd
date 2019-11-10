@@ -16,7 +16,7 @@ func _process(delta):
 	pass
 
 
-func track():
+func track_and_shoot():
 	
 	pass
 	var t_vel = -target.velocity
@@ -26,11 +26,10 @@ func track():
 	var b = 2*(t_pos - pos).dot(t_vel)
 	var c = (t_pos - pos).dot((t_pos - pos))
 	
-	print("Pos: %s" % t_pos)
-	print("Vel: %s" % t_vel)
-	print('a: %s,\t b: %s,\t c: %s' % [a, b, c])
-	print('pow(b, 2) > 4*a*c \t %s\n' % str(pow(b, 2) > 4*a*c))
-	
+#	print("Pos: %s" % t_pos)
+#	print("Vel: %s" % t_vel)
+#	print('a: %s,\t b: %s,\t c: %s' % [a, b, c])
+#	print('pow(b, 2) > 4*a*c \t %s\n' % str(pow(b, 2) > 4*a*c))
 	
 	if pow(b, 2) > 4*a*c and a != 0:
 		var t1 = (-b + sqrt(pow(b, 2) - 4*a*c))/(2*a)
@@ -42,9 +41,9 @@ func track():
 		var projectile = proj.instance()
 		self.get_parent().add_child(projectile)
 		projectile.global_position = pos
-		print(final_vel)
+#		print(final_vel)
 		projectile.VELOCITY = final_vel
 
 func _on_Timer_timeout():
-	print("Firing")
-	track()
+#	print("Firing")
+	track_and_shoot()
