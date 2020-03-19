@@ -3,7 +3,9 @@ extends StaticBody2D
 var target: Tank
 var PROJECTILE_SPEED = 100
 var pos
-var shot_timer: Timer
+
+var shot_timer
+var shot_final_vel: Vector2
 
 const proj = preload("res://Entities/Projectile/Projectile.tscn")
 
@@ -17,26 +19,23 @@ enum tracking_type{
 func _ready():	
 	print("I am ready")
 	pos = $Position.global_position
-	create_shot_pattern(270, 0, 0, 0, .300, 0)
+	create_shot_pattern(180, 0, 0, 0, .5, 0)
 
 func _process(delta):
 	pass
 
 func create_shot_pattern(angle, size, speed, multiplicity, frequency, tracking=0):
 	
-	shot_timer = Timer.Instance()
+	shot_timer = Timer.new()
+	add_child(shot_timer)
 	shot_timer.wait_time = frequency
 	shot_timer.connect("timeout", self, "_on_Timer_timeout")
 	
 	angle = angle * PI / 180
 	var target_vect = Vector2(cos(angle), sin(angle))
-	var final_vel = target_vect * PROJECTILE_SPEED
+	shot_final_vel = target_vect * PROJECTILE_SPEED
 	
-	var projectile = proj.instance()
-	self.get_parent().add_child(projectile)
-	projectile.global_position = pos
-	projectile.VELOCITY = final_vel
-	
+	print('Here')
 	shot_timer.start()
 	
 func track_and_shoot():
@@ -68,6 +67,9 @@ func track_and_shoot():
 		projectile.VELOCITY = final_vel
 
 func _on_Timer_timeout():
-#	print("Firing")
-#	track_and_shoot()
-	create_shot_pattern(270, 0, 0, 0, .300, 0)
+	
+	print('Timer timed out')
+	var projectile = proj.instance()
+	self.get_parent().add_child(projectile)
+	projectile.global_position = pos
+	projectile.VELOCITY = shot_final_vel
