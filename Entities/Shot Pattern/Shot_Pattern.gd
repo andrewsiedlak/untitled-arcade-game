@@ -23,11 +23,12 @@ enum TRACKING_TYPE{
 func _ready():
 	pass
 
-func straight_shot(angle, size, speed, frequency, multiplicity=1):
+func straight_shot(angle, size, speed, frequency, multi=1):
 	
 	tracking = TRACKING_TYPE.NONE
 	target = null
 	projectile_speed = null
+	multiplicity = 1
 	
 	shot_timer = Timer.new()
 	add_child(shot_timer)
@@ -43,11 +44,12 @@ func straight_shot(angle, size, speed, frequency, multiplicity=1):
 #	print('Now here')
 
 # Target expected to be tank (has velocity and global_position)
-func tracking_shot(target_2, track_type, size, speed, frequency, multiplicity=1):
+func tracking_shot(target_2, track_type, size, speed, frequency, multi=1):
 	
 	tracking = track_type
 	target = target_2
 	projectile_speed = speed
+	multiplicity = multi
 	
 	shot_timer = Timer.new()
 	add_child(shot_timer)
@@ -102,6 +104,7 @@ func _on_Timer_timeout():
 	projectile.VELOCITY = shot_final_vel
 	
 #	Decrement multiplicity, queue free when 0
-	multiplicity -= 1
+	multiplicity = multiplicity - 1
 	if multiplicity == 0:
+		print("Bye")
 		queue_free()

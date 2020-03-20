@@ -12,8 +12,8 @@ func _ready():
 func shoot():
 	var shot = shot_pattern.new()
 	add_child(shot)
-	shot.pos = $Position.global_position + Vector2(10, 0)
-	shot.tracking_shot(target, 1, 0, 100, 0, .5)
+	shot.pos = $Position.global_position
+	shot.tracking_shot(target, 1, 0, 100, 0.2, 3)
 	
 func _process(delta):
 	pass
