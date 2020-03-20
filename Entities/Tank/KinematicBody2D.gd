@@ -6,7 +6,7 @@ const PROJECTILE = preload("res://Entities/TankProjectile/tank_projectile.tscn")
 const SHOT_COOLDOWN_MSEC = 300
 const SPEED = 70
 
-var velocity = Vector2()
+var velocity = Vector2(0, 0)
 var shot_cooldown_begin = OS.get_ticks_msec()
 var facing_dir = null
 
