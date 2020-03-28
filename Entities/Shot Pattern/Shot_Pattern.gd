@@ -4,7 +4,7 @@ const proj = preload("res://Entities/Projectile/Projectile.tscn")
 
 var pos
 
-var tracking
+var shot_type
 var target: Tank
 var projectile_speed
 
@@ -13,27 +13,30 @@ var shot_final_vel: Vector2
 
 var multiplicity
 
-enum TRACKING_TYPE{
-	NONE = 0,
-	MOMENTARY = 1,
-	CONTINUOUS = 2
+enum SHOT_TYPE{
+	STRAIGHT = 0,
+	MOMENTARY_TRACKING = 1,
+	MULTI = 2
 }	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
-func straight_shot(angle, size, speed, frequency, multi=1):
-	
-	tracking = TRACKING_TYPE.NONE
-	target = null
-	projectile_speed = null
-	multiplicity = 1
-	
+func create_shot_timer(frequency):
 	shot_timer = Timer.new()
 	add_child(shot_timer)
 	shot_timer.wait_time = frequency
 	shot_timer.connect("timeout", self, "_on_Timer_timeout")
+	
+func straight_shot(angle, size, speed, frequency, multi=1):
+	
+	shot_type = SHOT_TYPE.STRAIGHT
+	target = null
+	projectile_speed = null
+	multiplicity = 1
+	
+	create_shot_timer(frequency)
 	
 	angle = angle * PI / 180
 	var target_vect = Vector2(cos(angle), sin(angle))
@@ -46,15 +49,12 @@ func straight_shot(angle, size, speed, frequency, multi=1):
 # Target expected to be tank (has velocity and global_position)
 func tracking_shot(target_2, track_type, size, speed, frequency, multi=1):
 	
-	tracking = track_type
+	shot_type = SHOT_TYPE.MOMENTARY_TRACKING
 	target = target_2
 	projectile_speed = speed
 	multiplicity = multi
 	
-	shot_timer = Timer.new()
-	add_child(shot_timer)
-	shot_timer.wait_time = frequency
-	shot_timer.connect("timeout", self, "_on_Timer_timeout")
+	create_shot_timer(frequency)
 	
 #	print('Here')
 	shot_timer.start()
@@ -64,7 +64,7 @@ func get_targeting_path(target, proj_speed):
 	
 	var t_vel = -target.velocity
 	var t_pos = target.global_position
-	print(target.global_position)
+#	print(target.global_position)
 
 	var a = t_vel.dot(t_vel) - pow(proj_speed, 2)
 	var b = 2*(t_pos - pos).dot(t_vel)
@@ -84,27 +84,32 @@ func get_targeting_path(target, proj_speed):
 		return dir*proj_speed
 		
 	
-func multi_shot():
-	pass
+func multi_shot(initial_angle, num_projs, offset_angle, size, speed, frequency, multi=1):
+	
+	create_shot_timer(frequency)
 
 func concentric_shot():
 	pass	
 	
 func _on_Timer_timeout():
-		
-#	print('Timer timed out')
-	var projectile = proj.instance()
-	self.get_parent().add_child(projectile)
-	projectile.global_position = pos
 	
-#	Generate tracking shot data
-	if tracking == TRACKING_TYPE.MOMENTARY:
-		shot_final_vel = get_targeting_path(target, projectile_speed)
+	if shot_type == SHOT_TYPE.STRAIGHT or shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
+	#	print('Timer timed out')
+		var projectile = proj.instance()
+		self.get_parent().add_child(projectile)
+		projectile.global_position = pos
 		
-	projectile.VELOCITY = shot_final_vel
-	
+	#	Generate tracking shot data
+		if shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
+			shot_final_vel = get_targeting_path(target, projectile_speed)
+			
+		projectile.VELOCITY = shot_final_vel
+	elif shot_type == SHOT_TYPE.MULTI:
+		
+		for proj_num in range(
+		
 #	Decrement multiplicity, queue free when 0
 	multiplicity = multiplicity - 1
 	if multiplicity == 0:
-		print("Bye")
+#		print("Bye")
 		queue_free()
