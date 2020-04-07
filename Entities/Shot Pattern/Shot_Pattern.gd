@@ -12,6 +12,13 @@ var shot_timer
 var shot_final_vel: Vector2
 
 var multiplicity
+var delay
+
+var init_angle
+var num_projs
+var offset_angle
+var size
+var speed
 
 enum SHOT_TYPE{
 	STRAIGHT = 0,
@@ -27,7 +34,7 @@ func create_shot_timer(frequency):
 	shot_timer = Timer.new()
 	add_child(shot_timer)
 	shot_timer.wait_time = frequency
-	shot_timer.connect("timeout", self, "_on_Timer_timeout")
+	shot_timer.connect("timeout", self, "_on_shot_Timer_timeout")
 	
 func straight_shot(angle, size, speed, frequency, multi=1):
 	
@@ -58,7 +65,6 @@ func tracking_shot(target_2, track_type, size, speed, frequency, multi=1):
 	
 #	print('Here')
 	shot_timer.start()
-#	print('Now here')
 
 func get_targeting_path(target, proj_speed):
 	
@@ -82,16 +88,28 @@ func get_targeting_path(target, proj_speed):
 		var predicted_pos = t_pos + t_vel*t
 		var dir = (predicted_pos - pos).normalized()
 		return dir*proj_speed
-		
+
+
+func multi_shot(initial_angle, num_projs, offset_angle, size, speed, frequency, multi=1, delay=0):
 	
-func multi_shot(initial_angle, num_projs, offset_angle, size, speed, frequency, multi=1):
+	shot_type = SHOT_TYPE.MULTI
 	
 	create_shot_timer(frequency)
-
+	
+	self.init_angle = initial_angle
+	self.multiplicity = multi
+	self.num_projs = num_projs
+	self.offset_angle = offset_angle
+	self.size = size
+	self.speed = speed
+	self.delay = delay
+	
+	shot_timer.start()
+	
 func concentric_shot():
 	pass	
 	
-func _on_Timer_timeout():
+func _on_shot_Timer_timeout():
 	
 	if shot_type == SHOT_TYPE.STRAIGHT or shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
 	#	print('Timer timed out')
@@ -104,12 +122,50 @@ func _on_Timer_timeout():
 			shot_final_vel = get_targeting_path(target, projectile_speed)
 			
 		projectile.VELOCITY = shot_final_vel
-	elif shot_type == SHOT_TYPE.MULTI:
 		
-		for proj_num in range(
+	elif shot_type == SHOT_TYPE.MULTI:
+		var current_angle = self.init_angle
+		
+		if self.num_projs % 2 != 0:  # Odd number of projectiles			
+			for val in range(self.num_projs):
+				
+				# Iterate and determine new angle
+				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
+				print(current_angle)
+				
+				var angle_rad = current_angle * PI/180  # Convert to radians
+				var target_vect = Vector2(cos(angle_rad), sin(angle_rad))
+				shot_final_vel = target_vect * self.speed
+				
+				# Create projectile and give it velocity
+				var projectile = proj.instance()
+				self.get_parent().add_child(projectile)
+				projectile.global_position = pos
+				projectile.VELOCITY = shot_final_vel
+				
+		else:  # Even number of projectiles
+			for val in range(1, self.num_projs + 1):
+				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
+				print(current_angle)
+				var angle_rad = current_angle * PI/180  # Convert to radians
+				var target_vect = Vector2(cos(angle_rad), sin(angle_rad))
+				shot_final_vel = target_vect * self.speed
+				
+				# Create projectile and give it velocity
+				var projectile = proj.instance()
+				self.get_parent().add_child(projectile)
+				projectile.global_position = pos
+				projectile.VELOCITY = shot_final_vel
 		
 #	Decrement multiplicity, queue free when 0
 	multiplicity = multiplicity - 1
 	if multiplicity == 0:
-#		print("Bye")
 		queue_free()
+#	Attempting to add delay with multiple shots, doesn't work
+#	if self.delay != null: 
+#		var t = Timer.new()
+#		t.set_wait_time(self.delay)
+#		t.set_one_shot(true)
+#		self.add_child(t)
+#		t.start()
+#		yield(t, "timeout")

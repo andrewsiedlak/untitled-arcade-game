@@ -13,7 +13,8 @@ func shoot():
 	var shot = shot_pattern.new()
 	add_child(shot)
 	shot.pos = $Position.global_position
-	shot.tracking_shot(target, 1, 0, 100, 0.2, 10)
+#	shot.tracking_shot(target, 1, 0, 100, 0.2, 10)
+	shot.multi_shot(0, 2, 20, 1, 100, 0.2)
 	
 func _process(delta):
 	pass
