@@ -106,8 +106,9 @@ func multi_shot(initial_angle, num_projs, offset_angle, size, speed, frequency, 
 	
 	shot_timer.start()
 	
-func concentric_shot():
-	pass	
+func concentric_shot(intial_angle, num_projs, size, speed, frequency):
+	var offset_ang = 360/num_projs
+	self.multi_shot(intial_angle, num_projs, offset_ang, size, speed, frequency)
 	
 func _on_shot_Timer_timeout():
 	
