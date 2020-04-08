@@ -38,20 +38,21 @@ func create_shot_timer(frequency):
 	
 func straight_shot(angle, size, speed, frequency, multi=1):
 	
+	print("Here")
 	shot_type = SHOT_TYPE.STRAIGHT
 	target = null
 	projectile_speed = null
-	multiplicity = 1
+	multiplicity = multi
 	
 	create_shot_timer(frequency)
 	
 	angle = angle * PI / 180
-	var target_vect = Vector2(cos(angle), sin(angle))
+	var target_vect = Vector2(cos(angle), sin(angle)).normalized()
 	shot_final_vel = target_vect * speed
 	
-#	print('Here')
+	print(shot_final_vel)
 	shot_timer.start()
-#	print('Now here')
+	print("Timer started")
 
 # Target expected to be tank (has velocity and global_position)
 func tracking_shot(target_2, track_type, size, speed, frequency, multi=1):
@@ -112,8 +113,10 @@ func concentric_shot(intial_angle, num_projs, size, speed, frequency):
 	
 func _on_shot_Timer_timeout():
 	
+	print('Timer timed out')
+	
 	if shot_type == SHOT_TYPE.STRAIGHT or shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
-	#	print('Timer timed out')
+		
 		var projectile = proj.instance()
 		self.get_parent().add_child(projectile)
 		projectile.global_position = pos
@@ -162,11 +165,3 @@ func _on_shot_Timer_timeout():
 	multiplicity = multiplicity - 1
 	if multiplicity == 0:
 		queue_free()
-#	Attempting to add delay with multiple shots, doesn't work
-#	if self.delay != null: 
-#		var t = Timer.new()
-#		t.set_wait_time(self.delay)
-#		t.set_one_shot(true)
-#		self.add_child(t)
-#		t.start()
-#		yield(t, "timeout")

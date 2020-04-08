@@ -28,10 +28,10 @@ func _ready():
 	else:
 		players.append($Lion)
 	
-	$Boss/AA_1.targets = $Bear
+#	$Boss/AT_1.targets = $Bear
+#	$Boss/AT_1.begin()
+
 	$Boss/AA_1.shoot()
-#	$Boss/AA_2.targets = $Tiger
-#	$Boss/AA_2.shoot()
 
 
 
