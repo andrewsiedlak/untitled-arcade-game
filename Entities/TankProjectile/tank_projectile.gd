@@ -2,7 +2,7 @@ extends Area2D
 
 const SPEED = 120
 var velocity = Vector2()
-var direction = null
+var direction = "up"
 
 func set_direction(facing_dir):
 	

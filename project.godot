@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "Lion",
+"language": "GDScript",
+"path": "res://Entities/Lion/KinematicBody2D.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Tank",
 "language": "GDScript",
 "path": "res://Entities/Tank/KinematicBody2D.gd"
@@ -18,10 +23,17 @@ _global_script_classes=[ {
 "class": "TempProjectile",
 "language": "GDScript",
 "path": "res://Entities/Projectile/Projectile.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Tiger",
+"language": "GDScript",
+"path": "res://Entities/Tiger/KinematicBody2D.gd"
 } ]
 _global_script_class_icons={
+"Lion": "",
 "Tank": "",
-"TempProjectile": ""
+"TempProjectile": "",
+"Tiger": ""
 }
 
 [application]
