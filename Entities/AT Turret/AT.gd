@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-const shot_pattern = preload("res://Entities/Shot Pattern/Shot_Pattern.gd")
+var shot_pattern = load("res://Entities/Shot Pattern/Shot_Pattern.gd")
 var pos
 var targets
 

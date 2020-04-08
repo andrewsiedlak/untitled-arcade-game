@@ -15,7 +15,7 @@ position = Vector2( 916.43, 547.846 )
 scale = Vector2( 2, 2 )
 
 [node name="Bear" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1583.62, 881.648 )
+position = Vector2( 872.297, 153.588 )
 scale = Vector2( 0.6, 0.6 )
 PlayerID = 3
 
