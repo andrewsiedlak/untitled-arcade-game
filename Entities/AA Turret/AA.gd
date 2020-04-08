@@ -84,7 +84,7 @@ func straight_shot():
 	var shot_2 = shot_pattern.new()
 	add_child(shot_2)
 	shot_2.barrel_tip_pos = $Node2D/Sprite/Position_Right
-	shot_2.multi_shot(0, 3, 15, 1, 200, 1)
+	shot_2.multi_shot($Node2D, 3, 15, 1, 200, 1)
 	
 func _process(delta):
 	pass

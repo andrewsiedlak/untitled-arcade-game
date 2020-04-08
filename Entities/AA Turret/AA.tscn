@@ -18,11 +18,9 @@ offset = Vector2( -37, -80 )
 
 [node name="Position_Left" type="Position2D" parent="Node2D/Sprite"]
 position = Vector2( -5.59406, -68.3761 )
-rotation = 1.5708
 
 [node name="Position_Right" type="Position2D" parent="Node2D/Sprite"]
 position = Vector2( 5.49308, -68.371 )
-rotation = 1.5708
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

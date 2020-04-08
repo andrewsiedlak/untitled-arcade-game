@@ -84,13 +84,13 @@ func get_targeting_path(target, proj_speed):
 		return dir*proj_speed
 
 
-func multi_shot(initial_angle, num_projs, offset_angle, size, speed, frequency, multi=1, delay=0):
+func multi_shot(node, num_projs, offset_angle, size, speed, frequency, multi=1, delay=0):
 	
 	shot_type = SHOT_TYPE.MULTI
 	
 	create_shot_timer(frequency)
 	
-	self.init_angle = initial_angle
+	self.node = node
 	self.multiplicity = multi
 	self.num_projs = num_projs
 	self.offset_angle = offset_angle
@@ -115,11 +115,10 @@ func _on_shot_Timer_timeout():
 	#	Generate tracking shot data
 		if shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
 			shot_final_vel = get_targeting_path(self.target, self.projectile_speed)
-			print("shot vel: %s" % shot_final_vel)
 			projectile.VELOCITY = shot_final_vel
 		else:
 			var angle = self.node.rotation
-#			angle = angle * PI / 180
+			print("current_angle (s): %s" % angle)
 			var target_vect = Vector2(cos(angle), sin(angle)).normalized()
 			shot_final_vel = target_vect * speed
 			projectile.VELOCITY = shot_final_vel
@@ -127,24 +126,26 @@ func _on_shot_Timer_timeout():
 		
 		
 	elif shot_type == SHOT_TYPE.MULTI:
-		var current_angle = self.init_angle
+		var current_angle = self.node.rotation
 		
 		if self.num_projs % 2 != 0:  # Odd number of projectiles			
 			for val in range(self.num_projs):
-				
-				# Iterate and determine new angle
-				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
-				
-				var angle_rad = current_angle * PI/180  # Convert to radians
-				var target_vect = Vector2(cos(angle_rad), sin(angle_rad))
-				shot_final_vel = target_vect * self.speed
 				
 				# Create projectile and give it velocity
 				var projectile = proj.instance()
 				self.get_parent().add_child(projectile)
 				projectile.global_position = barrel_tip_pos.global_position
+				
+				# Iterate and determine new angle
+				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
+				var angle_rad = current_angle * PI/180  # Convert to radians
+				print("current_angle: %s" % angle_rad)
+				var target_vect = Vector2(cos(angle_rad), sin(angle_rad))
+				shot_final_vel = target_vect * self.speed
+				
 				projectile.VELOCITY = shot_final_vel
 				
+			print("\n")
 		else:  # Even number of projectiles
 			for val in range(1, self.num_projs + 1):
 				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
