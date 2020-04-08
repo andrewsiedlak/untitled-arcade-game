@@ -2,14 +2,22 @@ extends KinematicBody2D
 
 class_name Tank
 
+signal health_changed
+
 const PROJECTILE = preload("res://Entities/TankProjectile/tank_projectile.tscn")
 const SHOT_COOLDOWN_MSEC = 300
 const SPEED = 200
 export (int) var PlayerID = 1
+export (int) var max_health
 
 var velocity = Vector2(0, 0)
 var shot_cooldown_begin = OS.get_ticks_msec()
-var facing_dir = null
+var facing_dir = "up"
+var health
+
+func _ready():
+	health = max_health
+	emit_signal('health_change', health * 100/max_health)
 
 func get_input():
 	# Detect up/down/left/right keystate and only move when pressed.
@@ -57,6 +65,15 @@ func get_input():
 		
 		
 	velocity = velocity.normalized() * SPEED
+	
+func take_damage(amount):
+	health -= amount
+	emit_signal('health_change', health * 100/max_health)
+	if health <= 0:
+		explode()
+
+func explode():
+	queue_free()
 
 func _physics_process(delta):
 	get_input()

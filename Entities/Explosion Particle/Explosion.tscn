@@ -1,28 +1,28 @@
 [gd_scene load_steps=8 format=2]
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.172485, 0.657084 )
 colors = PoolColorArray( 1, 0.94104, 0.460938, 1, 0.972656, 0.759888, 0.121582, 1, 0.859375, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="Curve" id=1]
+[sub_resource type="Curve" id=3]
 min_value = -200.0
 max_value = 400.0
 _data = [ Vector2( 0, 396.34 ), 0.0, -3167.11, 0, 0, Vector2( 0.990261, -78.86 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=5]
 max_value = 2.0
 _data = [ Vector2( 0, 1.8822 ), 0.0, 0.0, 0, 0, Vector2( 0.996192, 0.2278 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 1
 emission_sphere_radius = 2.0
 flag_disable_z = true
@@ -34,11 +34,11 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 100.0
 linear_accel_random = 0.5
-linear_accel_curve = SubResource( 2 )
+linear_accel_curve = SubResource( 4 )
 scale = 2.0
 scale_random = 1.0
-scale_curve = SubResource( 5 )
-color_ramp = SubResource( 7 )
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 2 )
 
 [node name="Sprite" type="Sprite"]
 
@@ -48,4 +48,4 @@ amount = 200
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.5
-process_material = SubResource( 3 )
+process_material = SubResource( 7 )
