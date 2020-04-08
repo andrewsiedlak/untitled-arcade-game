@@ -34,3 +34,17 @@ func _input(event):
 		elif Input.is_action_just_pressed("Player4_fire") and not player_4_joined:
 			player_4_joined = true
 			lion.get_node("Label").percent_visible = 1
+			
+		if Input.is_action_just_pressed("Player1_alt") and player_1_joined:
+			print("Here")
+			player_1_joined = false
+			bear.get_node("Label").percent_visible = 0
+		elif Input.is_action_just_pressed("Player2_alt") and player_2_joined:
+			player_2_joined = false
+			tiger.get_node("Label").percent_visible = 0
+		elif Input.is_action_just_pressed("Player3_alt") and player_3_joined:
+			player_3_joined = false
+			eagle.get_node("Label").percent_visible = 0
+		elif Input.is_action_just_pressed("Player4_alt") and player_4_joined:
+			player_4_joined = false
+			lion.get_node("Label").percent_visible = 0
