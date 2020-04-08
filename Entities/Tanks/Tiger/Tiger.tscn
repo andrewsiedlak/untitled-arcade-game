@@ -1,10 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Entities/Tanks/Tank/KinematicBody2D.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Tiger/Tiger1 Sprite3.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Tiger/Tiger1 Sprite2.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Tiger/Tiger1 Sprite1.png" type="Texture" id=4]
-
+[ext_resource path="res://Sprites/Tiger/TigerMovingAnimation.tres" type="SpriteFrames" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 43.7911, 60.6478 )
