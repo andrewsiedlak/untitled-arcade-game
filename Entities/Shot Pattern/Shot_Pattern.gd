@@ -52,6 +52,9 @@ func straight_shot(node, size, speed, frequency, multi=1):
 # Target expected to be tank (has velocity and global_position)
 func tracking_shot(target, size, speed, frequency, multi=1):
 	
+	if target == null:
+		return
+	
 	shot_type = SHOT_TYPE.MOMENTARY_TRACKING
 	self.target = target
 	self.projectile_speed = speed

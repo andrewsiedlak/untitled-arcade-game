@@ -5,6 +5,7 @@ var player_2_joined = false
 var player_3_joined = false
 var player_4_joined = false
 
+var players = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

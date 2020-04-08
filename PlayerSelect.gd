@@ -8,7 +8,7 @@ onready var lion = get_node("Background/Lion")
 onready var tiger = get_node("Background/Tiger")
 
 var countdown_timer: Timer
-const time = 1
+const time = 4
 
 
 # Called when the node enters the scene tree for the first time.

@@ -10,38 +10,31 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	var players = []
 	if not globals.player_1_joined:
 		$Bear.queue_free()
 	else:
-		players.append($Bear)
+		globals.players.append($Bear)
 	if not globals.player_2_joined:
 		$Tiger.queue_free()
 	else:
-		players.append($Tiger)
+		globals.players.append($Tiger)
 	if not globals.player_3_joined:
 		$Eagle.queue_free()
 	else:
-		players.append($Eagle)
+		globals.players.append($Eagle)
 	if not globals.player_4_joined:
 		$Lion.queue_free()
 	else:
-		players.append($Lion)
-	
-	$Boss/AT_1.targets = players
+		globals.players.append($Lion)
+
+	$Boss/AT_1.targets = globals.players
 	$Boss/AT_1.q = 2
-	$Boss/AT_2.targets = players
+	$Boss/AT_2.targets = globals.players
 	$Boss/AT_2.q = 3
-	$Boss/AA_1.targets = players
+	$Boss/AA_1.targets = globals.players
 	$Boss/AA_1.q = 1
-	$Boss/AA_2.targets = players
+	$Boss/AA_2.targets = globals.players
 	$Boss/AA_2.q = 4
-	$Boss/AT_1.begin()
-
-#	$Boss/AA_1.shoot()
-
-
-
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

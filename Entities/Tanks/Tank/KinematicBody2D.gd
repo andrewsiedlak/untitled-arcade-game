@@ -21,7 +21,7 @@ func _ready():
 
 func get_input():
 	# Detect up/down/left/right keystate and only move when pressed.
-	velocity = Vector2()
+	velocity = Vector2(0, 0)
 	if Input.is_action_pressed("Player" + str(PlayerID) + "_right"):
 		velocity.x += 1
 		$AnimatedSprite.play("moving")
@@ -76,6 +76,7 @@ func take_damage(amount):
 		explode()
 
 func explode():
+	globals.players.erase(self)
 	queue_free()
 
 func _physics_process(delta):
