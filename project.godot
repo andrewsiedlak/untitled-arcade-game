@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Untitiled-Arcade-Project"
-run/main_scene="res://TestScene.tscn"
+run/main_scene="res://Title_Menu.tscn"
 config/icon="res://icon.png"
 
 [display]

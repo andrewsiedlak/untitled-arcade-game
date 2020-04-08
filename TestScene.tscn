@@ -15,15 +15,15 @@ position = Vector2( 446.614, 901.018 )
 PlayerID = 3
 
 [node name="Tiger" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1379.71, 587.692 )
+position = Vector2( 1382.72, 587.692 )
+PlayerID = 2
 
 [node name="Lion" parent="." instance=ExtResource( 4 )]
 position = Vector2( 388.1, 428.948 )
-PlayerID = 2
+PlayerID = 4
 
 [node name="Bear" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1010.78, 404.776 )
-PlayerID = 4
 
 [node name="Boss" parent="." instance=ExtResource( 6 )]
 position = Vector2( 776.955, 645.281 )

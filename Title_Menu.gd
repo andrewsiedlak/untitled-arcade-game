@@ -13,6 +13,5 @@ func _ready():
 #	pass
 
 func _input(event):
-	if event is InputEventKey and event.scancode == KEY_M and not event.echo:
-		print("Here")
-		get_tree().change_scene("res://TestScene.tscn")
+	if event is InputEventKey and not event.echo:
+		get_tree().change_scene("res://PlayerSelect.tscn")
