@@ -1,10 +1,6 @@
 extends Control
 
 # Declare member variables here. Examples:
-var player_1_joined = false
-var player_2_joined = false
-var player_3_joined = false
-var player_4_joined = false
 
 onready var bear = get_node("Background/Bear")
 onready var eagle = get_node("Background/Eagle")
@@ -22,29 +18,28 @@ func _ready():
 func _input(event):
 	if event is InputEventKey and not event.echo:
 		
-		if Input.is_action_just_pressed("Player1_fire") and not player_1_joined:
-			player_1_joined = true
+		if Input.is_action_just_pressed("Player1_fire") and not globals.player_1_joined:
+			globals.player_1_joined = true
 			bear.get_node("Label").percent_visible = 1
-		elif Input.is_action_just_pressed("Player2_fire") and not player_2_joined:
-			player_2_joined = true
+		elif Input.is_action_just_pressed("Player2_fire") and not globals.player_2_joined:
+			globals.globals.player_2_joined = true
 			tiger.get_node("Label").percent_visible = 1
-		elif Input.is_action_just_pressed("Player3_fire") and not player_3_joined:
-			player_3_joined = true
+		elif Input.is_action_just_pressed("Player3_fire") and not globals.player_3_joined:
+			globals.player_3_joined = true
 			eagle.get_node("Label").percent_visible = 1
-		elif Input.is_action_just_pressed("Player4_fire") and not player_4_joined:
-			player_4_joined = true
+		elif Input.is_action_just_pressed("Player4_fire") and not globals.player_4_joined:
+			globals.player_4_joined = true
 			lion.get_node("Label").percent_visible = 1
 			
-		if Input.is_action_just_pressed("Player1_alt") and player_1_joined:
-			print("Here")
-			player_1_joined = false
+		if Input.is_action_just_pressed("Player1_alt") and globals.player_1_joined:
+			globals.player_1_joined = false
 			bear.get_node("Label").percent_visible = 0
-		elif Input.is_action_just_pressed("Player2_alt") and player_2_joined:
-			player_2_joined = false
+		elif Input.is_action_just_pressed("Player2_alt") and globals.player_2_joined:
+			globals.player_2_joined = false
 			tiger.get_node("Label").percent_visible = 0
-		elif Input.is_action_just_pressed("Player3_alt") and player_3_joined:
-			player_3_joined = false
+		elif Input.is_action_just_pressed("Player3_alt") and globals.player_3_joined:
+			globals.player_3_joined = false
 			eagle.get_node("Label").percent_visible = 0
-		elif Input.is_action_just_pressed("Player4_alt") and player_4_joined:
-			player_4_joined = false
+		elif Input.is_action_just_pressed("Player4_alt") and globals.player_4_joined:
+			globals.player_4_joined = false
 			lion.get_node("Label").percent_visible = 0
