@@ -9,12 +9,30 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	var players = []
+	if not globals.player_1_joined:
+		$Bear.queue_free()
+	else:
+		players.append($Bear)
+	if not globals.player_2_joined:
+		$Tiger.queue_free()
+	else:
+		players.append($Tiger)
+	if not globals.player_3_joined:
+		$Eagle.queue_free()
+	else:
+		players.append($Eagle)
+	if not globals.player_4_joined:
+		$Lion.queue_free()
+	else:
+		players.append($Lion)
+	
 	$Boss/AA_1.targets = $Bear
 	$Boss/AA_1.shoot()
-	$Boss/AA_2.targets = $Tiger
-	$Boss/AA_2.shoot()
-	
-	pass
+#	$Boss/AA_2.targets = $Tiger
+#	$Boss/AA_2.shoot()
+
 
 
 

@@ -5,18 +5,17 @@
 [ext_resource path="res://Sprites/Bear/T-34 Sprite3.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Bear/T-34 Sprite1.png" type="Texture" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 42.4141, 69.7822 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": false,
 "name": "idle",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "moving",
 "speed": 3.0
