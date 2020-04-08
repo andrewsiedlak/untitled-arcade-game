@@ -30,3 +30,4 @@ PlayerID = 4
 
 [node name="Tiger" parent="." instance=ExtResource( 6 )]
 position = Vector2( 423.79, 445.997 )
+PlayerID = 2
