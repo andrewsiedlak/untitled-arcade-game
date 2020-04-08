@@ -23,6 +23,7 @@ PlayerID = 2
 
 [node name="Bear" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1010.78, 404.776 )
+PlayerID = 4
 
 [node name="Boss" parent="." instance=ExtResource( 6 )]
 position = Vector2( 776.955, 645.281 )
