@@ -6,12 +6,18 @@ var targets
 var target
 var timer: Timer
 var tracking_timer: Timer
+var cooldown_timer: Timer
+
+var rand = RandomNumberGenerator.new()
 
 var q  # quadrant
+var polarity
 
 var in_pattern = false
 
 var tracking_timer_timeout = 30
+var random_timer_timeout = 3
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	timer = Timer.new()
@@ -19,6 +25,11 @@ func _ready():
 	timer.wait_time = .1
 	timer.connect("timeout", self, "_on_Timer_timeout")
 	timer.start()
+	
+	cooldown_timer = Timer.new()
+	add_child(cooldown_timer)
+	cooldown_timer.wait_time = 3 + rand.randi_range(0, 2)
+	cooldown_timer.connect("timeout", self, "_on_cooldown_Timer_timeout")
 	
 func begin():
 	
@@ -36,8 +47,6 @@ func tracking_shot(size, speed, frequency, multi=1):
 	tracking_timer.wait_time = .1
 	tracking_timer.connect("timeout", self, "_on_tracking_Timer_timeout")
 	tracking_timer.start()
-	
-	
 
 func shoot_tracking_shot():
 	var shot = shot_pattern.new()
@@ -45,7 +54,25 @@ func shoot_tracking_shot():
 	shot.barrel_tip_pos = $Node2D/Sprite/Position
 	shot.tracking_shot(self.target, 1, 500, .1, 3)
 	in_pattern = false
+	cooldown_timer.start()
 #	var vect = shot.get_targeting_path(target, 200)
+
+func random_shots():
+	for val in range(3):
+		var random_timer = Timer.new()
+		add_child(random_timer)
+		var time = rand.randf() + (1.5*val)
+		print(time)
+		random_timer.wait_time = time
+		random_timer.one_shot = 1
+		random_timer.connect("timeout", self, "_on_random_Timer_timeout")
+		random_timer.start()
+
+func straight_shot():
+	var shot = shot_pattern.new()
+	add_child(shot)
+	shot.barrel_tip_pos = $Node2D/Sprite/Position
+	shot.straight_shot($Node2D, 1, 200, .2, 1 + rand.randi_range(0,1))
 	
 func _process(delta):
 	pass
@@ -53,6 +80,9 @@ func _process(delta):
 func _on_Timer_timeout():
 	if not in_pattern:
 		for tar in targets:
+			
+			timer.stop()
+			
 			self.target = null
 			if self.q == 1 and tar.get_global_position().x < 916.4 and tar.get_global_position().y < 547.8:  # Q2
 	#			print("1")
@@ -66,10 +96,12 @@ func _on_Timer_timeout():
 			elif self.q == 4 and tar.get_global_position().x > 916.4 and tar.get_global_position().y > 547.8:  # Q4
 	#			print("4")
 				self.target = tar
-		
+			
+			in_pattern = true
 			if self.target != null:
-				in_pattern = true
-				self.tracking_shot(1, 100, .1, 1)
+				self.tracking_shot(1, -100, .1, 1)
+			else:
+				self.random_shots()
 			
 func _on_tracking_Timer_timeout():
 	rotate_sprite(self.target)
@@ -78,3 +110,18 @@ func _on_tracking_Timer_timeout():
 		tracking_timer.stop()
 		self.tracking_timer_timeout = 30
 		self.shoot_tracking_shot()
+
+func _on_random_Timer_timeout():
+	rotation = rotation + ((20 + rand.randf_range(0, 5)) * pow(-1, random_timer_timeout))
+	random_timer_timeout -= 1
+	self.straight_shot()
+	if random_timer_timeout == 0:
+		cooldown_timer.start()
+		in_pattern = false
+		random_timer_timeout = 3
+	
+	
+func _on_cooldown_Timer_timeout():
+	cooldown_timer.stop()
+	timer.wait_time = 3 + rand.randi_range(0, 2)
+	timer.start()
