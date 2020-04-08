@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://PlayerSelect.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Tiger/TigerMovingAnimation.tres" type="SpriteFrames" id=2]
@@ -8,12 +8,16 @@
 [ext_resource path="res://retro_computer_personal_use.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Sprites/Bear/BearMovingAnimation.tres" type="SpriteFrames" id=7]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 50
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 30
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 35
 font_data = ExtResource( 6 )
 
 [node name="Control" type="Control"]
@@ -32,7 +36,6 @@ rotation = 1.5708
 scale = Vector2( 1.75, 1.75 )
 frames = ExtResource( 2 )
 animation = "moving"
-frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="Background/Tiger"]
@@ -51,6 +54,7 @@ rotation = 1.5708
 scale = Vector2( 1.75, 1.75 )
 frames = ExtResource( 4 )
 animation = "moving"
+frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="Background/Eagle"]
@@ -70,7 +74,7 @@ rotation = 1.5708
 scale = Vector2( 1.75, 1.75 )
 frames = ExtResource( 5 )
 animation = "moving"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="Background/Lion"]
@@ -90,7 +94,7 @@ margin_left = -260.5
 margin_top = 30.0
 margin_right = 260.5
 margin_bottom = 95.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "PLAYER SELECT"
 
 [node name="Instructions" type="Label" parent="Background"]
@@ -102,7 +106,7 @@ margin_left = -538.5
 margin_top = -93.0
 margin_right = 538.5
 margin_bottom = -10.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "PRESS PRIMARY FIRE TO JOIN / CONFIRM SELECTION
 PRESS ALT-FIRE TO GO BACK"
 align = 1
@@ -113,7 +117,6 @@ rotation = 1.57123
 scale = Vector2( 1.75, 1.75 )
 frames = ExtResource( 7 )
 animation = "moving"
-frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="Background/Bear"]
@@ -125,3 +128,14 @@ rect_rotation = -89.9461
 custom_fonts/font = ExtResource( 3 )
 text = "PLayer 1"
 percent_visible = 0.0
+
+[node name="TimeLabel" type="Label" parent="Background"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -226.5
+margin_top = 90.0
+margin_right = 226.5
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 3 )
+text = "Time Remaining:  "
+align = 1
