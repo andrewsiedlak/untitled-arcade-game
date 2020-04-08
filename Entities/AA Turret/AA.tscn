@@ -15,9 +15,11 @@ offset = Vector2( -37, -80 )
 
 [node name="Position_Left" type="Position2D" parent="."]
 position = Vector2( -5.6935, -71.6576 )
+rotation = 1.5708
 
 [node name="Position_Right" type="Position2D" parent="."]
 position = Vector2( 5.39364, -71.6525 )
+rotation = 1.5708
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

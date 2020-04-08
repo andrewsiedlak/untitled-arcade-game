@@ -2,7 +2,7 @@ extends Node
 
 const proj = preload("res://Entities/Projectile/Projectile.tscn")
 
-var pos
+var barrel_tip_pos
 
 var shot_type
 var target: Tank
@@ -19,6 +19,7 @@ var num_projs
 var offset_angle
 var size
 var speed
+var node
 
 enum SHOT_TYPE{
 	STRAIGHT = 0,
@@ -36,26 +37,22 @@ func create_shot_timer(frequency):
 	shot_timer.wait_time = frequency
 	shot_timer.connect("timeout", self, "_on_shot_Timer_timeout")
 	
-func straight_shot(angle, size, speed, frequency, multi=1):
+func straight_shot(node, size, speed, frequency, multi=1):
 	
-	print("Here")
 	shot_type = SHOT_TYPE.STRAIGHT
 	target = null
 	projectile_speed = null
 	multiplicity = multi
+	self.node = node
+	self.speed = speed
 	
 	create_shot_timer(frequency)
 	
-	angle = angle * PI / 180
-	var target_vect = Vector2(cos(angle), sin(angle)).normalized()
-	shot_final_vel = target_vect * speed
-	
 	print(shot_final_vel)
 	shot_timer.start()
-	print("Timer started")
 
 # Target expected to be tank (has velocity and global_position)
-func tracking_shot(target_2, track_type, size, speed, frequency, multi=1):
+func tracking_shot(target_2, size, speed, frequency, multi=1):
 	
 	shot_type = SHOT_TYPE.MOMENTARY_TRACKING
 	target = target_2
@@ -74,8 +71,8 @@ func get_targeting_path(target, proj_speed):
 #	print(target.global_position)
 
 	var a = t_vel.dot(t_vel) - pow(proj_speed, 2)
-	var b = 2*(t_pos - pos).dot(t_vel)
-	var c = (t_pos - pos).dot((t_pos - pos))
+	var b = 2*(t_pos - barrel_tip_pos.global_position).dot(t_vel)
+	var c = (t_pos - barrel_tip_pos.global_position).dot((t_pos - barrel_tip_pos.global_position))
 	
 #	print("Pos: %s" % t_pos)
 #	print("Vel: %s" % t_vel)
@@ -87,7 +84,7 @@ func get_targeting_path(target, proj_speed):
 		var t2 = (-b - sqrt(pow(b, 2) - 4*a*c))/(2*a)
 		var t = min(t1, t2)
 		var predicted_pos = t_pos + t_vel*t
-		var dir = (predicted_pos - pos).normalized()
+		var dir = (predicted_pos - barrel_tip_pos.global_position).normalized()
 		return dir*proj_speed
 
 
@@ -113,17 +110,20 @@ func concentric_shot(intial_angle, num_projs, size, speed, frequency):
 	
 func _on_shot_Timer_timeout():
 	
-	print('Timer timed out')
-	
 	if shot_type == SHOT_TYPE.STRAIGHT or shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
 		
 		var projectile = proj.instance()
 		self.get_parent().add_child(projectile)
-		projectile.global_position = pos
+		projectile.global_position = barrel_tip_pos.global_position
 		
 	#	Generate tracking shot data
 		if shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
 			shot_final_vel = get_targeting_path(target, projectile_speed)
+		else:
+			var angle = self.node.rotation
+#			angle = angle * PI / 180
+			var target_vect = Vector2(cos(angle), sin(angle)).normalized()
+			shot_final_vel = target_vect * speed
 			
 		projectile.VELOCITY = shot_final_vel
 		
@@ -144,7 +144,7 @@ func _on_shot_Timer_timeout():
 				# Create projectile and give it velocity
 				var projectile = proj.instance()
 				self.get_parent().add_child(projectile)
-				projectile.global_position = pos
+				projectile.global_position = barrel_tip_pos.global_position
 				projectile.VELOCITY = shot_final_vel
 				
 		else:  # Even number of projectiles
@@ -158,7 +158,7 @@ func _on_shot_Timer_timeout():
 				# Create projectile and give it velocity
 				var projectile = proj.instance()
 				self.get_parent().add_child(projectile)
-				projectile.global_position = pos
+				projectile.global_position = barrel_tip_pos.global_position
 				projectile.VELOCITY = shot_final_vel
 		
 #	Decrement multiplicity, queue free when 0
