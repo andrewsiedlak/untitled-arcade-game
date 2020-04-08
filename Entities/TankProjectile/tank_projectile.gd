@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 120
+const SPEED = 240
 var velocity = Vector2()
 var direction = "up"
 
@@ -31,4 +31,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 
 func _on_Area2D_body_entered(body):
-	queue_free()
+	if body.name == "Eagle" or body.name == "Lion" or body.name == "Bear" or body.name == "Tiger":
+		pass
+	else:
+		queue_free()

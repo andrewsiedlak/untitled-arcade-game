@@ -5,7 +5,6 @@
 [ext_resource path="res://Sprites/Eagle/m4 sherman 4.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Eagle/m4 sherman 2.png" type="Texture" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 38.8549, 68.2461 )
 
@@ -35,4 +34,4 @@ frames = SubResource( 2 )
 animation = "idle"
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 0.549213, -66.4365 )
+position = Vector2( 0.208187, -68.6532 )

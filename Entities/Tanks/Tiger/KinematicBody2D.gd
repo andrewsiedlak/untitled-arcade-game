@@ -11,6 +11,9 @@ var velocity = Vector2()
 var shot_cooldown_begin = OS.get_ticks_msec()
 var facing_dir = null
 
+func get_PlayerID():
+	return PlayerID
+
 func get_input():
 	# Detect up/down/left/right keystate and only move when pressed.
 	velocity = Vector2()
