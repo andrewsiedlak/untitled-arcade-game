@@ -17,7 +17,7 @@ extents = Vector2( 2, 2 )
 [node name="Area2D" type="Area2D"]
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
-damage = 50
+damage = 25
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

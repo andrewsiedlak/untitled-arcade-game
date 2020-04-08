@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Tank
 
-signal health_changed
+signal health_change
 
 const PROJECTILE = preload("res://Entities/TankProjectile/tank_projectile.tscn")
 const SHOT_COOLDOWN_MSEC = 300
@@ -44,6 +44,9 @@ func get_input():
 		facing_dir = "up"
 	else:
 		$AnimatedSprite.play("idle")
+		health += .01
+		emit_signal('health_change', health * 100/max_health)
+		
 		
 	if Input.is_action_pressed("Player" + str(PlayerID) + "_fire"):
 		

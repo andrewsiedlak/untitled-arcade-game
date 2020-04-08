@@ -307,7 +307,7 @@ PlayerID = 3
 max_health = 200
 
 [node name="Eagle" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1523.41, 892.804 )
+position = Vector2( 1242.57, 300.977 )
 scale = Vector2( 0.6, 0.6 )
 PlayerID = 4
 max_health = 200
