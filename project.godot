@@ -12,22 +12,22 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Bear",
 "language": "GDScript",
-"path": "res://Entities/Bear/KinematicBody2D.gd"
+"path": "res://Entities/Tanks/Bear/KinematicBody2D.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Eagle",
 "language": "GDScript",
-"path": "res://Entities/Eagle/KinematicBody2D.gd"
+"path": "res://Entities/Tanks/Eagle/KinematicBody2D.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Lion",
 "language": "GDScript",
-"path": "res://Entities/Lion/KinematicBody2D.gd"
+"path": "res://Entities/Tanks/Lion/KinematicBody2D.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Tank",
 "language": "GDScript",
-"path": "res://Entities/Tank/KinematicBody2D.gd"
+"path": "res://Entities/Tanks/Tank/KinematicBody2D.gd"
 }, {
 "base": "Area2D",
 "class": "TempProjectile",
@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Tiger",
 "language": "GDScript",
-"path": "res://Entities/Tiger/KinematicBody2D.gd"
+"path": "res://Entities/Tanks/Tiger/KinematicBody2D.gd"
 } ]
 _global_script_class_icons={
 "Bear": "",
@@ -183,11 +183,6 @@ Player4_fire={
 Player4_alt={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777350,"unicode":0,"echo":false,"script":null)
- ]
-}
-fake_input={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"unicode":0,"echo":false,"script":null)
  ]
 }
 
