@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://TestScene.gd" type="Script" id=1]
-[ext_resource path="res://Entities/Tank/Tank.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Entities/Bear/Bear.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Entities/Turret/Turret.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Entities/Lion/Lion.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Entities/Tiger/Tiger.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Entities/Eagle/Eagle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Entities/AT Turret/AT.tscn" type="PackedScene" id=7]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -12,17 +14,20 @@ script = ExtResource( 1 )
 [node name="Turret" parent="." instance=ExtResource( 3 )]
 position = Vector2( 932.766, 565.118 )
 
-[node name="Player3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1556.49, 921.772 )
-PlayerID = 3
-
-[node name="Player4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1768.09, 179.975 )
-PlayerID = 4
-
 [node name="Tiger" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1318.29, 838.241 )
 
 [node name="Lion" parent="." instance=ExtResource( 4 )]
 position = Vector2( 420.828, 222.511 )
 PlayerID = 2
+
+[node name="Eagle" parent="." instance=ExtResource( 6 )]
+position = Vector2( 446.614, 901.018 )
+PlayerID = 3
+
+[node name="Bear" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1355.58, 333.912 )
+PlayerID = 4
+
+[node name="AT_Turret" parent="." instance=ExtResource( 7 )]
+position = Vector2( 645.798, 554.953 )
