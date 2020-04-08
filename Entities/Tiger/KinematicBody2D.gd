@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
-class_name Tank
+class_name Tiger
 
 const PROJECTILE = preload("res://Entities/TankProjectile/tank_projectile.tscn")
 const SHOT_COOLDOWN_MSEC = 300
-const SPEED = 200
+const SPEED = 70
 export (int) var PlayerID = 1
 
 var velocity = Vector2()
