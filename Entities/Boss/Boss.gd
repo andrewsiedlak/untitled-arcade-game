@@ -2,7 +2,7 @@ extends StaticBody2D
 
 const shot_pattern = preload("res://Entities/Shot Pattern/Shot_Pattern.gd")
 var pos
-var target
+var targets
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
