@@ -1,8 +1,10 @@
 extends Area2D
 
-const SPEED = 120
+const SPEED = 240
 var velocity = Vector2()
 var direction = "up"
+
+export (int) var damage
 
 func set_direction(facing_dir):
 	
@@ -31,4 +33,13 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 
 func _on_Area2D_body_entered(body):
+	if body.name == "Eagle" or body.name == "Lion" or body.name == "Bear" or body.name == "Tiger":
+		pass
+	elif body.has_method('take_damage'):
+		body.take_damage(damage)
+		explode()
+	else:
+		queue_free()
+
+func explode():
 	queue_free()
