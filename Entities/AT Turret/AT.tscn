@@ -17,8 +17,7 @@ centered = false
 offset = Vector2( -32, -90 )
 
 [node name="Position" type="Position2D" parent="Node2D/Sprite"]
-position = Vector2( -0.305912, -83.6892 )
-rotation = -1.5708
+position = Vector2( -0.305916, -82.6085 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

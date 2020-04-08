@@ -21,7 +21,6 @@ shape = SubResource( 1 )
 
 [node name="AA_1" parent="." instance=ExtResource( 3 )]
 position = Vector2( -24.9707, -21.3953 )
-rotation = -1.74846e-007
 scale = Vector2( 0.75, 0.75 )
 
 [node name="AA_2" parent="." instance=ExtResource( 3 )]

@@ -8,7 +8,7 @@ var timer: Timer
 var tracking_timer: Timer
 var cooldown_timer: Timer
 
-var rand = RandomNumberGenerator.new()
+var rand
 
 var q  # quadrant
 var polarity
@@ -20,6 +20,9 @@ var random_timer_timeout = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	rand = RandomNumberGenerator.new()
+	
 	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = .1
@@ -38,6 +41,7 @@ func begin():
 func rotate_sprite(target=null):
 	if target != null:
 		$Node2D.look_at(target.get_global_position())
+	pass
 #	$Sprite.rotation_degrees = 90
 
 func tracking_shot(size, speed, frequency, multi=1):
@@ -52,7 +56,11 @@ func shoot_tracking_shot():
 	var shot = shot_pattern.new()
 	add_child(shot)
 	shot.barrel_tip_pos = $Node2D/Sprite/Position
-	shot.tracking_shot(self.target, 1, 500, .1, 3)
+	print($Node2D/Sprite/Position.global_position)
+	var shot_speed = 500
+	if self.q == 3 or self.q == 4:
+		shot_speed *= -1
+	shot.tracking_shot(self.target, 1, shot_speed, .1, 3)
 	in_pattern = false
 	cooldown_timer.start()
 #	var vect = shot.get_targeting_path(target, 200)
@@ -62,7 +70,6 @@ func random_shots():
 		var random_timer = Timer.new()
 		add_child(random_timer)
 		var time = rand.randf() + (1.5*val)
-		print(time)
 		random_timer.wait_time = time
 		random_timer.one_shot = 1
 		random_timer.connect("timeout", self, "_on_random_Timer_timeout")
@@ -112,7 +119,7 @@ func _on_tracking_Timer_timeout():
 		self.shoot_tracking_shot()
 
 func _on_random_Timer_timeout():
-	rotation = rotation + ((20 + rand.randf_range(0, 5)) * pow(-1, random_timer_timeout))
+	$Node2D.rotation = rotation + ((20 + rand.randf_range(0, 8)) * pow(-1, random_timer_timeout))
 	random_timer_timeout -= 1
 	self.straight_shot()
 	if random_timer_timeout == 0:

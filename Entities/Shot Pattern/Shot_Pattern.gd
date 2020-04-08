@@ -47,44 +47,40 @@ func straight_shot(node, size, speed, frequency, multi=1):
 	self.speed = speed
 	
 	create_shot_timer(frequency)
-	
-	print(shot_final_vel)
 	shot_timer.start()
 
 # Target expected to be tank (has velocity and global_position)
-func tracking_shot(target_2, size, speed, frequency, multi=1):
+func tracking_shot(target, size, speed, frequency, multi=1):
 	
 	shot_type = SHOT_TYPE.MOMENTARY_TRACKING
-	target = target_2
-	projectile_speed = speed
+	self.target = target
+	self.projectile_speed = speed
 	multiplicity = multi
 	
 	create_shot_timer(frequency)
 	
-#	print('Here')
 	shot_timer.start()
 
 func get_targeting_path(target, proj_speed):
 	
-	var t_vel = -target.velocity
+	var t_vel = target.velocity
 	var t_pos = target.global_position
-#	print(target.global_position)
 
 	var a = t_vel.dot(t_vel) - pow(proj_speed, 2)
 	var b = 2*(t_pos - barrel_tip_pos.global_position).dot(t_vel)
 	var c = (t_pos - barrel_tip_pos.global_position).dot((t_pos - barrel_tip_pos.global_position))
 	
-#	print("Pos: %s" % t_pos)
-#	print("Vel: %s" % t_vel)
-#	print('a: %s,\t b: %s,\t c: %s' % [a, b, c])
-#	print('pow(b, 2) > 4*a*c \t %s\n' % str(pow(b, 2) > 4*a*c))
-	
 	if pow(b, 2) > 4*a*c and a != 0:
 		var t1 = (-b + sqrt(pow(b, 2) - 4*a*c))/(2*a)
 		var t2 = (-b - sqrt(pow(b, 2) - 4*a*c))/(2*a)
-		var t = min(t1, t2)
+		var t
+		if t1 < t2 and t1 > 0:  # Pick minimum positive time
+			t = t1
+		else:
+			t = t2
 		var predicted_pos = t_pos + t_vel*t
 		var dir = (predicted_pos - barrel_tip_pos.global_position).normalized()
+
 		return dir*proj_speed
 
 
@@ -118,14 +114,17 @@ func _on_shot_Timer_timeout():
 		
 	#	Generate tracking shot data
 		if shot_type == SHOT_TYPE.MOMENTARY_TRACKING:
-			shot_final_vel = get_targeting_path(target, projectile_speed)
+			shot_final_vel = get_targeting_path(self.target, self.projectile_speed)
+			print("shot vel: %s" % shot_final_vel)
+			projectile.VELOCITY = shot_final_vel
 		else:
 			var angle = self.node.rotation
 #			angle = angle * PI / 180
 			var target_vect = Vector2(cos(angle), sin(angle)).normalized()
 			shot_final_vel = target_vect * speed
-			
-		projectile.VELOCITY = shot_final_vel
+			projectile.VELOCITY = shot_final_vel
+		
+		
 		
 	elif shot_type == SHOT_TYPE.MULTI:
 		var current_angle = self.init_angle
@@ -135,7 +134,6 @@ func _on_shot_Timer_timeout():
 				
 				# Iterate and determine new angle
 				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
-				print(current_angle)
 				
 				var angle_rad = current_angle * PI/180  # Convert to radians
 				var target_vect = Vector2(cos(angle_rad), sin(angle_rad))
@@ -150,7 +148,6 @@ func _on_shot_Timer_timeout():
 		else:  # Even number of projectiles
 			for val in range(1, self.num_projs + 1):
 				current_angle = current_angle + self.offset_angle*val*pow(-1, val)
-				print(current_angle)
 				var angle_rad = current_angle * PI/180  # Convert to radians
 				var target_vect = Vector2(cos(angle_rad), sin(angle_rad))
 				shot_final_vel = target_vect * self.speed

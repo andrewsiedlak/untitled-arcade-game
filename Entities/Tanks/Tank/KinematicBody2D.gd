@@ -63,4 +63,5 @@ func _physics_process(delta):
 	move_and_slide(velocity)
 	
 func _process(delta):
-	look_at(get_global_mouse_position())
+#	print("I am at %f , %f" % [self.get_global_position().x, self.get_global_position().y])
+	pass

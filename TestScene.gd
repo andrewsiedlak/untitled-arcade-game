@@ -32,8 +32,10 @@ func _ready():
 	$Boss/AT_1.q = 2
 	$Boss/AT_2.targets = players
 	$Boss/AT_2.q = 3
-#	$Boss/AA_1.target = $Bear
-#	$Boss/AA_2.target = $Bear
+	$Boss/AA_1.targets = players
+	$Boss/AA_1.q = 1
+	$Boss/AA_2.targets = players
+	$Boss/AA_2.q = 4
 	$Boss/AT_1.begin()
 
 #	$Boss/AA_1.shoot()
